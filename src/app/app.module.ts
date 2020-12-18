@@ -3,14 +3,29 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-
+import { InputComponent } from './input/input.component';
+import { GoalsComponent } from './goals/goals.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatProgressBarModule} from '@angular/material/progress-bar'; 
+import {MatExpansionModule} from '@angular/material/expansion'; 
+import {MatCheckboxModule} from '@angular/material/checkbox'; 
+import { FormsModule } from '@angular/forms';
+import {HttpClientModule} from '@angular/common/http';
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    InputComponent,
+    GoalsComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatExpansionModule,
+    MatProgressBarModule,
+    MatCheckboxModule,
+    FormsModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,0 +1,39 @@
+<div  *ngFor="let goal of goals">
+<h2>{{goal.name}}</h2>
+<mat-expansion-panel hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <mat-progress-bar class="goallo" mode="determinate" value="40"></mat-progress-bar>      </mat-panel-title>
+     
+    </mat-expansion-panel-header>
+    <div *ngFor="let task of goal.tasks">
+    <h2>{{task.name}}</h2>
+
+    <mat-expansion-panel  hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+
+          <mat-progress-bar class="goallo" mode="determinate" value="40"></mat-progress-bar>      </mat-panel-title>
+       
+      </mat-expansion-panel-header>
+      <div *ngFor="let subtask of task.subtasks">
+      <mat-checkbox   (change)="subtask.value"  >{{subtask.name}}</mat-checkbox>
+    </div>
+    </mat-expansion-panel>
+  </div>
+
+  </mat-expansion-panel></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  

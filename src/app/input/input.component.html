@@ -1,0 +1,20 @@
+
+<!-- 
+<div class="form-group">
+  <label for="exampleInputEmail1">goal name</label>
+  <input type="text" class="form-control"  aria-describedby="emailHelp" placeholder="Enter email">
+</div> -->
+<!-- <form *ngFor="let task of tasks"> -->
+<form>
+  <div class="form-group">
+      <label for="exampleInputEmail1"  >task name:{{taskname}}</label>
+      <input type="text" name="taskname" [(ngModel)]="taskname" class="form-control" placeholder="task name">
+    </div>
+    <div class="form-group" *ngFor="let subtask of subtasks">
+      <input name="subtasko" class="form-control" type="text" #test [(ngModel)]="sub">
+    </div>
+    <!-- <button (click)="addtask()"  type="button" class="btn btn-primary">add task</button> -->
+    <button (click)="addsubtask()"  type="button" class="btn btn-primary">add subtask</button>
+    <button (click)="save()"  type="button" class="btn btn-primary">save</button>
+
+  </form>
