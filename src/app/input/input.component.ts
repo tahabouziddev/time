@@ -5,6 +5,8 @@ import { task } from '../task.model';
 import {goal} from '../goal.model'
 import { TestBed } from '@angular/core/testing';
 import { FormsModule, NgForm } from '@angular/forms';
+import {map} from 'rxjs/operators'
+import { YesService } from '../yes.service';
 
 @Component({
   selector: 'app-input',
@@ -13,44 +15,68 @@ import { FormsModule, NgForm } from '@angular/forms';
 })
 export class InputComponent implements OnInit {
 
-  constructor( private http:HttpClient) { }
+  constructor( private http:HttpClient, private push:YesService) { }
 
   ngOnInit(): void {
-  }
+  this.http.get('https://time-ea2ea-default-rtdb.firebaseio.com/types.json',{observe:"body"}).subscribe(res=>{
+    this.types=res
+  })
+  this.push.types.next(this.types)
+}
   
-  subtasks:subtask[]=[ new subtask("",false) ]
+  subtasks:subtask[]=[ new subtask("",false)]
   tasks:task
   sub:string
   taskname:string
 
 
-//   @ViewChild('test') test :ElementRef;
 
+subo:string=""
+onKey(event:any){
 
-// ngAfterViewInit() {
-// this.yes=this.test.nativeElement.value
-//     console.log(this.yes);
-    
-//     }
-addsubtask(){
-  this.subtasks.push(new subtask(this.sub,false))
+this.subo = event.target.value
+
 }
+
+addsubtask(){
+  if(this.subo!=""){
+  this.subtasks.push(new subtask(this.subo,false))
+  }
+  
+}
+
+types:string[]=[]
+thetype:string
+addtype:string
+ addtypo(){ 
+  this.types.push(this.addtype)
+  this.push.types.next(this.types)
+  this.http.put('https://time-ea2ea-default-rtdb.firebaseio.com/types.json',this.types).subscribe()
+ }
+
+
 // addtask(){
 //   this.tasks.push(this.sub)
 // }
 save(){
-
-  this.tasks=new task(this.taskname,this.subtasks,0)
+  this.subtasks.push(new subtask(this.subo,false))
+   this.subtasks.splice(0,1)
+  this.tasks=new task(this.taskname,this.subtasks,0,this.thetype,"gt")
   this.http.post('https://time-ea2ea-default-rtdb.firebaseio.com/testtasks.json',{data: this.tasks}).subscribe(res=>{
-    console.log(res);
-    
-  }  )
+    this.push.taha.next(new task(this.tasks.name,this.tasks.subtasks,this.tasks.value,this.tasks.type,res.name))
 
-//   this.http.get('https://my-diary-d61dd.firebaseio.com/',{observe:"body"}).subscribe(res=>{
-//   console.log(res);
+  } 
   
-//   })
-//   this.subtasks
- }
+  
+  
+  )
+
+
+
+  }
+
+
 
 }
+
+

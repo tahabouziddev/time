@@ -11,6 +11,11 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import {MatCheckboxModule} from '@angular/material/checkbox'; 
 import { FormsModule } from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
+
+
+
+import {MatFormFieldModule} from '@angular/material/form-field'; 
+import {MatSelectModule} from '@angular/material/select'; 
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,6 +31,8 @@ import {HttpClientModule} from '@angular/common/http';
     MatCheckboxModule,
     FormsModule,
     HttpClientModule,
+    MatSelectModule,
+    MatFormFieldModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
