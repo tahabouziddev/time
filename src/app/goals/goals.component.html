@@ -11,6 +11,10 @@
     <button *ngIf="check" class="btn btn-success" (click)="bitchoo()">archive</button>
     <button class="btn btn-success" (click)="tasoa()">show only </button>
     <button class="btn btn-success" (click)="tasoaa()">show all </button>
+    <button class="btn btn-success" (click)="tasa()">add task </button>
+    <button class="btn btn-success" (click)="tas()">view archived posts </button>
+
+
 
     
     <mat-form-field appearance="fill">
@@ -23,12 +27,13 @@
     </mat-form-field>
     <div *ngIf="sho">
     <div *ngFor="let task of tasks" >
-    <h2>{{task.name}}</h2>
+      <h2 *ngIf="!check" >{{task.name}}</h2>
+    <mat-checkbox (change)="checko(task)" *ngIf="check"><h2>{{task.name}}</h2></mat-checkbox> 
     <mat-expansion-panel  hideToggle>
       <mat-expansion-panel-header>
         <mat-panel-title>
 
-    <mat-progress-bar class="goallo" mode="determinate" [value]="task.value"></mat-progress-bar>  <mat-checkbox (change)="checko(task)" *ngIf="check"></mat-checkbox>    </mat-panel-title>
+    <mat-progress-bar class="goallo" mode="determinate" [value]="task.value"></mat-progress-bar>     </mat-panel-title>
        
       </mat-expansion-panel-header>
       <div *ngFor="let subtask of task.subtasks">

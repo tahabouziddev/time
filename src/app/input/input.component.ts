@@ -18,7 +18,7 @@ export class InputComponent implements OnInit {
   constructor( private http:HttpClient, private push:YesService) { }
 
   ngOnInit(): void {
-  this.http.get('https://time-ea2ea-default-rtdb.firebaseio.com/types.json',{observe:"body"}).subscribe(res=>{
+  this.push.tahaa().subscribe(res=>{
     this.types=res
   })
   this.push.types.next(this.types)
@@ -39,7 +39,7 @@ this.subo = event.target.value
 }
 
 addsubtask(){
-  if(this.subo!=""){
+  if(this.subo){
   this.subtasks.push(new subtask(this.subo,false))
   }
   
@@ -59,17 +59,24 @@ addtype:string
 //   this.tasks.push(this.sub)
 // }
 save(){
+  if(this.taskname&&this.subo){
+  
+
+  
+
   this.subtasks.push(new subtask(this.subo,false))
    this.subtasks.splice(0,1)
   this.tasks=new task(this.taskname,this.subtasks,0,this.thetype,"gt")
   this.http.post('https://time-ea2ea-default-rtdb.firebaseio.com/testtasks.json',{data: this.tasks}).subscribe(res=>{
     this.push.taha.next(new task(this.tasks.name,this.tasks.subtasks,this.tasks.value,this.tasks.type,res.name))
+   this.push.create.next(false)
 
   } 
   
   
   
   )
+}
 
 
 

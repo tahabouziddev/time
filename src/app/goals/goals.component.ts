@@ -5,6 +5,7 @@ import {goal} from '../goal.model'
 import { HttpClient } from '@angular/common/http';
 import {map} from 'rxjs/operators'
 import { YesService } from '../yes.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-goals',
@@ -13,19 +14,35 @@ import { YesService } from '../yes.service';
 })
 export class GoalsComponent implements OnInit {
 
-  constructor(private http:HttpClient,private push:YesService) { }
+  constructor(private http:HttpClient,private push:YesService,private router:Router,private route:ActivatedRoute) { }
   ngOnInit(): void {
-  this.gettasks()
-  this.push.types.subscribe(res=>{
-    this.sort=res
-  })
-  }
+  this.gettasks("")
+ this.push.tahaa().subscribe(res=>{
+   this.sort=res
+ })
+ 
+
+}
+
+sort
+toto=false
+tr=""
+tas(){
+ this.toto=!this.toto
+ this.tasks.splice(0,this.tasks.length)
+ if(this.toto){
+this.gettasks("/archived")
+ }else{
+  this.gettasks("")
 
 
-
-gettasks(){
-   
-  this.http.get('https://time-ea2ea-default-rtdb.firebaseio.com/testtasks.json',{observe:"body"}).pipe(map(resp=>{
+ }
+}
+tasa(){
+  this.push.create.next(true)
+}
+gettasks(e:string): void{
+  this.http.get(`https://time-ea2ea-default-rtdb.firebaseio.com/testtasks${e}.json`,{observe:"body"}).pipe(map(resp=>{
   const realresponse = []
   for (const key in resp){
     realresponse.push({ ...resp[key], id:key})
@@ -66,7 +83,7 @@ this.http.put(`https://time-ea2ea-default-rtdb.firebaseio.com/testtasks/${res.id
 ret:string
 sho=true
 notsho=!this.sho
-sort
+
 value:boolean=false
 valalalaalalalalalala
 
@@ -116,7 +133,7 @@ let b = f.subtasks.length
   f.value= a / b*100
 
   this.http.put(`https://time-ea2ea-default-rtdb.firebaseio.com/testtasks/${f.id}/data/subtasks/${bo}/value.json`,
-  f.value).subscribe(res=>{console.log(res);
+  e.value).subscribe(res=>{console.log(res);
   });
   this.http.put(`https://time-ea2ea-default-rtdb.firebaseio.com/testtasks/${f.id}/data/value.json`,
   f.value).subscribe(res=>{console.log(res);
@@ -125,29 +142,44 @@ let b = f.subtasks.length
 }
 check:boolean=false
 ter
-checko
-(r){
-  this.tasks.forEach(elem=>{
-if (elem=r){
-  this.http.delete(`https://time-ea2ea-default-rtdb.firebaseio.com/testtasks/${elem.id+'.json'}`).subscribe();
+checko(r){
+  this.ter = r
+  }
 
-
-}
-
-  })
-this.ter = r
-
-}
 bitcho(){
-      this.ter
-
+  this.tasks.forEach(elem=>{
+    if (elem=this.ter){
+    
+      this.http.delete(`https://time-ea2ea-default-rtdb.firebaseio.com/testtasks/${elem.id+'.json'}`).subscribe();
+      this.tasks.splice(this.tasks.indexOf(elem))
+    
+    
+    }
+    
+      } )
 
 }
 
 bitchoo(){
-  this.http.post('https://time-ea2ea-default-rtdb.firebaseio.com/archived.json/',{data:this.ter}).subscribe(res=>{console.log(res);
-  });
-  this.bitcho()
+  this.tasks.forEach(elem=>{
+    if (elem=this.ter){
+      this.http.post('https://time-ea2ea-default-rtdb.firebaseio.com/testtasks/archived.json/',{data:this.ter}).subscribe(res=>{console.log(res);
+    });
+      this.http.delete(`https://time-ea2ea-default-rtdb.firebaseio.com/testtasks/${elem.id+'.json'}`).subscribe();
+      this.tasks.splice(this.tasks.indexOf(elem))
+    
+    
+    }
+    
+      } )
+
+
+
+
+
+
+   
+  
 }
 
 bitch(){
