@@ -42,7 +42,7 @@ tasa(){
   this.push.create.next(true)
 }
 gettasks(e:string): void{
-  this.http.get(`https://time-ea2ea-default-rtdb.firebaseio.com/testtasks${e}.json`,{observe:"body"}).pipe(map(resp=>{
+  this.http.get(`https://time-ea2ea-default-rtdb.firebaseio.com/testtaskso${e}.json`,{observe:"body"}).pipe(map(resp=>{
   const realresponse = []
   for (const key in resp){
     realresponse.push({ ...resp[key], id:key})
@@ -75,7 +75,7 @@ bo3o=this.push.taha.subscribe(res=>{
   console.log(res);
   
 this.tasks.push(res)
-this.http.put(`https://time-ea2ea-default-rtdb.firebaseio.com/testtasks/${res.id+'.json'}`,{data:res}).subscribe();
+this.http.put(`https://time-ea2ea-default-rtdb.firebaseio.com/testtaskso/${res.id+'.json'}`,{data:res}).subscribe();
 
 
 })
@@ -132,40 +132,60 @@ f.subtasks.forEach(element => {
 let b = f.subtasks.length
   f.value= a / b*100
 
-  this.http.put(`https://time-ea2ea-default-rtdb.firebaseio.com/testtasks/${f.id}/data/subtasks/${bo}/value.json`,
+  this.http.put(`https://time-ea2ea-default-rtdb.firebaseio.com/testtaskso/${f.id}/data/subtasks/${bo}/value.json`,
   e.value).subscribe(res=>{console.log(res);
   });
-  this.http.put(`https://time-ea2ea-default-rtdb.firebaseio.com/testtasks/${f.id}/data/value.json`,
+  this.http.put(`https://time-ea2ea-default-rtdb.firebaseio.com/testtaskso/${f.id}/data/value.json`,
   f.value).subscribe(res=>{console.log(res);
   });
    
 }
 check:boolean=false
-ter
+ter:string[]=[]
 checko(r){
-  this.ter = r
+  
+  this.ter.push(r.id) 
+  console.log(this.ter)
   }
-
 bitcho(){
-  this.tasks.forEach(elem=>{
-    if (elem=this.ter){
-    
-      this.http.delete(`https://time-ea2ea-default-rtdb.firebaseio.com/testtasks/${elem.id+'.json'}`).subscribe();
-      this.tasks.splice(this.tasks.indexOf(elem))
-    
-    
+
+
+  this.tasks.forEach(elemo=>{
+    console.log(elemo);
+    if(this.ter.indexOf(elemo.id)> -1){
+this.tasks.splice(this.tasks.indexOf(elemo),1)   
+     
     }
+   
+    
+  })
+
+
+
+
+
+  this.ter.forEach(elem=>{
+    this.http.delete(`https://time-ea2ea-default-rtdb.firebaseio.com/testtaskso/${elem+'.json'}`).subscribe();
+    
+    
+      
     
       } )
+
+
+
+
+
+
 
 }
 
 bitchoo(){
   this.tasks.forEach(elem=>{
     if (elem=this.ter){
-      this.http.post('https://time-ea2ea-default-rtdb.firebaseio.com/testtasks/archived.json/',{data:this.ter}).subscribe(res=>{console.log(res);
+      this.http.post('https://time-ea2ea-default-rtdb.firebaseio.com/testtaskso/archived.json/',{data:this.ter}).subscribe(res=>{console.log(res);
     });
-      this.http.delete(`https://time-ea2ea-default-rtdb.firebaseio.com/testtasks/${elem.id+'.json'}`).subscribe();
+      this.http.delete(`https://time-ea2ea-default-rtdb.firebaseio.com/testtaskso/${elem.id+'.json'}`).subscribe();
       this.tasks.splice(this.tasks.indexOf(elem))
     
     

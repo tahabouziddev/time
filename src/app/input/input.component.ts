@@ -50,7 +50,7 @@ addtype:string
   this.push.types.next(this.types)
   this.http.put('https://time-ea2ea-default-rtdb.firebaseio.com/types.json',this.types).subscribe()
  }
-
+resname:string
 
 // addtask(){
 //   this.tasks.push(this.sub)
@@ -64,17 +64,18 @@ save(){
   this.subtasks.push(new subtask(this.subo,false))
    this.subtasks.splice(0,1)
   this.tasks=new task(this.taskname,this.subtasks,0,this.thetype,"gt")
-  this.http.post('https://time-ea2ea-default-rtdb.firebaseio.com/testtaskso.json',{data: this.tasks}).subscribe(res=>{
-   
+  this.http.post('https://time-ea2ea-default-rtdb.firebaseio.com/testtaskso.json',{data: this.tasks}).subscribe((res:any)=>{
+   this.resname=res.name
+    
+    console.log(this.resname);
     
     
-    
-    this.push.taha.next(new task(this.tasks.name,this.tasks.subtasks,this.tasks.value,this.tasks.type,res.name))
+    this.push.taha.next(new task(this.tasks.name,this.tasks.subtasks,this.tasks.value,this.tasks.type,this.resname))
    this.push.create.next(false)
-   this.http.put(`https://time-ea2ea-default-rtdb.firebaseio.com/testtaskso/${res.name}.json`,{data:
-   new task(this.tasks.name,this.tasks.subtasks,this.tasks.value,this.tasks.type,res.name)
+   this.http.put(`https://time-ea2ea-default-rtdb.firebaseio.com/testtaskso/${this.resname}.json`,{data:
+   new task(this.tasks.name,this.tasks.subtasks,this.tasks.value,this.tasks.type,this.resname)
   }).subscribe(res=>{
-     console.log(res);
+     //console.log(res);
      
    })
 
