@@ -1,11 +1,8 @@
 import {HttpClient, HttpClientModule } from '@angular/common/http';
-import { Component, ElementRef, OnInit, ViewChild,AfterViewInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import  {subtask} from '../subtask.model'
 import { task } from '../task.model';
-import {goal} from '../goal.model'
-import { TestBed } from '@angular/core/testing';
 import { FormsModule, NgForm } from '@angular/forms';
-import {map} from 'rxjs/operators'
 import { YesService } from '../yes.service';
 
 @Component({
@@ -67,11 +64,21 @@ save(){
   this.subtasks.push(new subtask(this.subo,false))
    this.subtasks.splice(0,1)
   this.tasks=new task(this.taskname,this.subtasks,0,this.thetype,"gt")
-  this.http.post('https://time-ea2ea-default-rtdb.firebaseio.com/testtasks.json',{data: this.tasks}).subscribe(res=>{
-    this.push.taha.next(new task(this.tasks.name,this.tasks.subtasks,this.tasks.value,this.tasks.type,res.toString()))
+  this.http.post('https://time-ea2ea-default-rtdb.firebaseio.com/testtaskso.json',{data: this.tasks}).subscribe(res=>{
+   
+    
+    
+    
+    this.push.taha.next(new task(this.tasks.name,this.tasks.subtasks,this.tasks.value,this.tasks.type,res.name))
    this.push.create.next(false)
+   this.http.put(`https://time-ea2ea-default-rtdb.firebaseio.com/testtaskso/${res.name}.json`,{data:
+   new task(this.tasks.name,this.tasks.subtasks,this.tasks.value,this.tasks.type,res.name)
+  }).subscribe(res=>{
+     console.log(res);
+     
+   })
 
-  } 
+   } 
   
   
   
