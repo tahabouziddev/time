@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { CommonModule } from '@angular/common';  
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { InputComponent } from './input/input.component';
@@ -16,16 +16,17 @@ import {HttpClientModule} from '@angular/common/http';
 
 import {MatFormFieldModule} from '@angular/material/form-field'; 
 import {MatSelectModule} from '@angular/material/select';
-import { IndexComponent } from './index/index.component'; 
+//import { IndexComponent } from './index/index.component'; 
 @NgModule({
   declarations: [
     AppComponent,
     InputComponent,
     GoalsComponent,
-    IndexComponent
+   // IndexComponent
   ],
   imports: [
     BrowserModule,
+    CommonModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatExpansionModule,

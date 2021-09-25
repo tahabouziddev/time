@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { YesService } from './yes.service';
 
 @Component({
@@ -8,17 +8,21 @@ import { YesService } from './yes.service';
   styleUrls: ['./app.component.css']
 })
 
-export class AppComponent {
+export class AppComponent  implements OnInit {
+
+
   title = 'time';
+  bouzid:boolean
+
   constructor( private http:HttpClient, private push:YesService) { }
- taha=
-   this.push.create.subscribe(res=>{
-     this.bouzid=res
- })
-bouzid:boolean
+  ngOnInit(): void{
+    this.push.create.subscribe(res=>{
+      this.bouzid=res
+   
+  })
 
 }
-
+}
 
 
 

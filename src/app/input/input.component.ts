@@ -45,7 +45,7 @@ addsubtask(){
   
 }
 
-types:string[]=[]
+types
 thetype:string
 addtype:string
  addtypo(){ 
@@ -68,7 +68,7 @@ save(){
    this.subtasks.splice(0,1)
   this.tasks=new task(this.taskname,this.subtasks,0,this.thetype,"gt")
   this.http.post('https://time-ea2ea-default-rtdb.firebaseio.com/testtasks.json',{data: this.tasks}).subscribe(res=>{
-    this.push.taha.next(new task(this.tasks.name,this.tasks.subtasks,this.tasks.value,this.tasks.type,res.name))
+    this.push.taha.next(new task(this.tasks.name,this.tasks.subtasks,this.tasks.value,this.tasks.type,res.toString()))
    this.push.create.next(false)
 
   } 
