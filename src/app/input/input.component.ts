@@ -4,6 +4,8 @@ import  {subtask} from '../subtask.model'
 import { task } from '../task.model';
 import { FormsModule, NgForm } from '@angular/forms';
 import { YesService } from '../yes.service';
+import { map } from 'rxjs/operators';
+import { getSupportedInputTypes } from '@angular/cdk/platform';
 
 @Component({
   selector: 'app-input',
@@ -14,11 +16,35 @@ export class InputComponent implements OnInit {
 
   constructor( private http:HttpClient, private push:YesService) { }
 
+  gettypes(){
+    this.push.tahaa().pipe(map(res=>{
+      const realresponse = []
+  
+        for (const key in res){
+          realresponse.push({ ...res[key], id:key,})
+        }
+      return realresponse
+      
+        }))
+        .subscribe(res=>{
+          console.log(res);
+          
+    res.forEach(elem=>{
+     this.types.push(elem.type)
+     console.log(elem.type);
+     this.push.types.next(this.types)
+
+
+})
+
+
+
+        })
+  
+  
+  }
   ngOnInit(): void {
-  this.push.tahaa().subscribe(res=>{
-    this.types=res
-  })
-  this.push.types.next(this.types)
+this.gettypes()
 }
   
   subtasks:subtask[]=[ new subtask("",false)]
@@ -42,13 +68,15 @@ addsubtask(){
   
 }
 
-types
+types:string[]=[]
 thetype:string
 addtype:string
  addtypo(){ 
+ this.gettypes()
   this.types.push(this.addtype)
   this.push.types.next(this.types)
-  this.http.put('https://time-ea2ea-default-rtdb.firebaseio.com/types.json',this.types).subscribe()
+  this.http.post('https://time-ea2ea-default-rtdb.firebaseio.com/types.json',{type :this.addtype}).subscribe(res=>{console.log(res);
+  })
  }
 resname:string
 

@@ -15,7 +15,16 @@ export class YesService {
   return this.http.get('https://time-ea2ea-default-rtdb.firebaseio.com/types.json',{observe:"body"})
   
 }
-  
+  smthg(){
+    
+  }
+
+
+
+
+
+
+
 taha=new Subject<task>()
 
 types= new Subject<any>()

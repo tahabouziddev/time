@@ -15,16 +15,47 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class GoalsComponent implements OnInit {
 
   constructor(private http:HttpClient,private push:YesService,private router:Router,private route:ActivatedRoute) { }
+ 
+ 
+  gettypes(){
+    this.push.tahaa().pipe(map(res=>{
+      const realresponse = []
+  
+        for (const key in res){
+          realresponse.push({ ...res[key], id:key,})
+        }
+      return realresponse
+      
+        }))
+        .subscribe(res=>{
+          console.log(res);
+          
+    res.forEach(elem=>{
+     this.sort.push(elem.type)
+     console.log(elem.type);
+     this.push.types.next(this.sort)
+
+
+})
+
+
+
+        })
+  
+  
+  }
+ 
   ngOnInit(): void {
+    
   this.gettasks("")
- this.push.tahaa().subscribe(res=>{
-   this.sort=res
- })
+  this.gettypes()
+ ////this.sort=res
+// })
  
 
 }
 
-sort
+sort:string[]=[]
 toto=false
 tr=""
 tas(){
@@ -182,30 +213,15 @@ bitcho(){
 
 
   this.tasks.forEach(elemo=>{
-    console.log(elemo);
-
   this.functiono(elemo,execute)
    
     
   })
 
-
-
-
-
-  this.ter.forEach(elem=>{
-   // this.http.delete(`https://time-ea2ea-default-rtdb.firebaseio.com/testtaskso/${elem+'.json'}`).subscribe();
-
- 
- 
-      
+this.ter.forEach(elem=>{
+   this.http.delete(`https://time-ea2ea-default-rtdb.firebaseio.com/testtaskso/${elem+'.json'}`).subscribe();
     
       } )
-
-
-
-
-
 
 
 }
