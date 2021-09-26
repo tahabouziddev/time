@@ -147,15 +147,27 @@ checko(r){
   this.ter.push(r.id) 
   console.log(this.ter)
   }
+
+functiono(elemoo,execute){
+if(execute){
+
+  if(this.ter.indexOf(elemoo.id)> -1){
+    this.tasks.splice(this.tasks.indexOf(elemoo),1)   
+         
+        }
+
+execute=false
+}
+}
+
 bitcho(){
+  let execute=true
 
 
   this.tasks.forEach(elemo=>{
     console.log(elemo);
-    if(this.ter.indexOf(elemo.id)> -1){
-this.tasks.splice(this.tasks.indexOf(elemo),1)   
-     
-    }
+
+  this.functiono(elemo,execute)
    
     
   })
@@ -165,9 +177,10 @@ this.tasks.splice(this.tasks.indexOf(elemo),1)
 
 
   this.ter.forEach(elem=>{
-    this.http.delete(`https://time-ea2ea-default-rtdb.firebaseio.com/testtaskso/${elem+'.json'}`).subscribe();
-    
-    
+   // this.http.delete(`https://time-ea2ea-default-rtdb.firebaseio.com/testtaskso/${elem+'.json'}`).subscribe();
+
+ 
+ 
       
     
       } )
