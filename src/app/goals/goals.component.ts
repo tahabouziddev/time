@@ -160,6 +160,23 @@ execute=false
 }
 }
 
+
+functionu(elemoo,execute){
+  if(execute){
+  
+    if(this.ter.indexOf(elemoo.id)> -1){
+      this.tasks.splice(this.tasks.indexOf(elemoo),1)   
+      
+      this.http.post('https://time-ea2ea-default-rtdb.firebaseio.com/testtaskso/archived.json/',{data:elemoo}).subscribe(res=>
+      {console.log(res)});
+          }
+  
+  execute=false
+  }
+  }
+
+
+
 bitcho(){
   let execute=true
 
@@ -193,27 +210,41 @@ bitcho(){
 
 }
 
+
 bitchoo(){
-  this.tasks.forEach(elem=>{
-    if (elem=this.ter){
-      this.http.post('https://time-ea2ea-default-rtdb.firebaseio.com/testtaskso/archived.json/',{data:this.ter}).subscribe(res=>{console.log(res);
-    });
-      this.http.delete(`https://time-ea2ea-default-rtdb.firebaseio.com/testtaskso/${elem.id+'.json'}`).subscribe();
-      this.tasks.splice(this.tasks.indexOf(elem))
-    
-    
-    }
-    
-      } )
+
+  let execute=true
 
 
+  this.tasks.forEach(elemo=>{
 
-
-
-
+  this.functionu(elemo,execute)
    
+    
   
-}
+
+
+})
+
+
+
+
+  this.ter.forEach(elem=>{
+    
+   
+      this.http.delete(`https://time-ea2ea-default-rtdb.firebaseio.com/testtaskso/${elem+'.json'}`).subscribe();
+    
+    
+    
+  
+        
+  })
+  }
+
+
+
+
+
 
 bitch(){
    this.check  = !this.check
